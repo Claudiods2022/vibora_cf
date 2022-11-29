@@ -1,30 +1,50 @@
-ArrayList<Integer> x=new ArrayList<Integer>(), y= new ArrayList<Integer>();
+//variables espaciales del juego
 
 int w=50, m=0, b=0; // la medición del ancho 
 int h=30, p=0; // la medición del alto
 int div=20; //cuán grande es la división de cada cuadrado de la cuadricula
-int punto=0;
+int largo=0;
+
+
+//poscicion de la cabeza de vibora
+int x=17; //posición de la serpiente en x en un inicio
+int  y=14; //posición de la serpiente en y en un inicio
+//variables del usuario;
+
+
+
+//variables de direccion del largo de la vibora
+int sx=0;
+int sy=0;
+int crecimiento=0,cx,cy;  //variables relacionadas al crecimiento de la serpiente
 short direccion=0;
+int punto=0;
+
+//poscicion de manzana
 int xr;
 int yr;
-int i;
 
-int largo=1;
+
+
+
 
 void setup() {
   size  (700, 600); //tamaño de la ventana
-  x.add(17); //posición de la serpiente en x en un inicio
-  y.add(14); //posición de la serpiente en y en un inicio
   frameRate(13);
    xr=(int)(random(-15, 15));
    yr=(int)(random(-13, 13));
+     
 }
+
+   
+ 
 
 void draw() {
   background (5, 5, 5);
-  for (int i=0; i<w; i++) line (i*div, 0, i*div, height); //cuadricula, parte vertical
-  for (int i=0; i<h; i++) line (0, i*div, width, i*div); //cuadricula, parte horizontal
+  for (int l=0; l<w; l++) line (l*div, 0, l*div, height); //cuadricula, parte vertical
+  for (int l=0; l<h; l++) line (0, l*div, width, l*div); //cuadricula, parte horizontal
   stroke (100, 100, 80);
+
   limites();
   pantalla(); 
   manzana();
@@ -32,42 +52,63 @@ void draw() {
   tp();
   serpiente();
   comer();
-   switch(direccion){
+  
+  switch(direccion){
     case 1:
       p++;
+      sy=1;
+      sx=0;
       break;
     
     case 2:
        p--;
+       sy=-1;
+       sx=0;
        break;
     
     case 3:
       m--;
+      sx=-1;
+      sy=0;
       break;
     
     case 4:
        m++;
+       sx=1;
+       sy=0;
        break;
   }
 }
 
 void comer(){
-   if (((x.get(i)*div+p*div)==(x.get(i)+xr)*div)&&((y.get(i)*div+m*div)==(y.get(i)+yr)*div)) { //comparación
+   if (((x*div+p*div)==(x+xr)*div)&&((y*div+m*div)==(y+yr)*div)) 
+   { 
+     
+     
+    crecimiento=1;
+   
     xr=(int)(random(-15, 15)); //int random = (int) (0......)   sentencia para numero aleatorio y que sea entero
     yr=(int)(random(-13, 13));
-    largo++;
     punto=punto+10;
   }
 }
 
 void serpiente(){
-    fill(40, 116, 166); 
-    rect(x.get(i)*div+p*div, y.get(i)*div+m*div, div*largo, div); 
+    fill(40, 116, 166);  
+    rect(x*div+p*div, y*div+m*div, div, div); 
+    fill(0, 255, 0);  
+    
+    if(crecimiento==1)
+    {
+      cx=(x-sy)*div+p*div;
+      cy=(y-sx)*div+m*div;
+      rect(cx,cy, div, div); 
+    }
 }
 
 void manzana() { 
     fill(255, 0, 0); 
-    rect((x.get(i)+xr)*div, (y.get(i)+yr)*div, div, div);
+    rect((x+xr)*div, (y+yr)*div, div, div);
 }
 
 void pantalla() {
@@ -87,6 +128,7 @@ void puntaje() {
   
 void tp(){  
   text ("("+p+","+m+")", 0,height-10);
+  text ("("+cx+","+cy+")", 120,height-10);
   
   if(p>=16)
   {

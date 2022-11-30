@@ -85,7 +85,7 @@ void comer(){
    { 
      
      
-    crecimiento=1;
+     crecimiento++;
    
     xr=(int)(random(-15, 15)); //int random = (int) (0......)   sentencia para numero aleatorio y que sea entero
     yr=(int)(random(-13, 13));
@@ -97,12 +97,19 @@ void serpiente(){
     fill(40, 116, 166);  
     rect(x*div+p*div, y*div+m*div, div, div); 
     fill(0, 255, 0);  
+    if(crecimiento!=0)
+    {  
+      for(int c=1;c<=crecimiento;c++)
+      {
+         fill(40, 116, 166);  
+    rect(x*div+p*div, y*div+m*div, div, div); 
     
-    if(crecimiento==1)
-    {
-      cx=(x-sy)*div+p*div;
-      cy=(y-sx)*div+m*div;
-      rect(cx,cy, div, div); 
+        cx=(x-(sy*crecimiento))*div+p*div;
+        cy=(y-(sx*crecimiento))*div+m*div;
+         
+        
+       rect(cx,cy, div, div); 
+      }
     }
 }
 

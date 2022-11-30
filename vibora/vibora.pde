@@ -101,12 +101,11 @@ void serpiente(){
     {  
       for(int c=1;c<=crecimiento;c++)
       {
-    
+      
         cx=(x-(sy*crecimiento))*div+p*div;
-        cy=(y-(sx*crecimiento))*div+m*div;
+        cy=y*div-(sx*crecimiento)+m*div;
          
-        
-       rect(cx,cy, div, div); 
+        rect(cx,cy, div, div); 
       }
     }
 }

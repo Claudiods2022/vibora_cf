@@ -101,8 +101,6 @@ void serpiente(){
     {  
       for(int c=1;c<=crecimiento;c++)
       {
-         fill(40, 116, 166);  
-    rect(x*div+p*div, y*div+m*div, div, div); 
     
         cx=(x-(sy*crecimiento))*div+p*div;
         cy=(y-(sx*crecimiento))*div+m*div;

@@ -12,11 +12,10 @@ int  y=14; //posición de la serpiente en y en un inicio
 //variables del usuario;
 
 
-
 //variables de direccion del largo de la vibora
 int sx=0;
 int sy=0;
-int crecimiento=0,cx,cy;  //variables relacionadas al crecimiento de la serpiente
+int c=0,crecimiento=0,cx,cy;  //variables relacionadas al crecimiento de la serpiente
 short direccion=0;
 int punto=0;
 
@@ -40,11 +39,17 @@ void setup() {
  
 
 void draw() {
-  background (5, 5, 5);
+  if(c>=crecimiento){
+    c=0;
+    background (5, 5, 5);
+    
+  }else c++;
+  
+  
   for (int l=0; l<w; l++) line (l*div, 0, l*div, height); //cuadricula, parte vertical
   for (int l=0; l<h; l++) line (0, l*div, width, l*div); //cuadricula, parte horizontal
   stroke (100, 100, 80);
-
+  
   limites();
   pantalla(); 
   manzana();
@@ -53,7 +58,13 @@ void draw() {
   serpiente();
   comer();
   
-  switch(direccion){
+  controles();
+
+}
+
+void controles()
+{
+    switch(direccion){
     case 1:
       p++;
       sy=1;
@@ -80,13 +91,12 @@ void draw() {
   }
 }
 
+
 void comer(){
    if (((x*div+p*div)==(x+xr)*div)&&((y*div+m*div)==(y+yr)*div)) 
    { 
      
-     
-     crecimiento++;
-   
+    crecimiento++;
     xr=(int)(random(-15, 15)); //int random = (int) (0......)   sentencia para numero aleatorio y que sea entero
     yr=(int)(random(-13, 13));
     punto=punto+10;
@@ -94,20 +104,9 @@ void comer(){
 }
 
 void serpiente(){
-    fill(40, 116, 166);  
+    fill(0, 255, 0); 
     rect(x*div+p*div, y*div+m*div, div, div); 
-    fill(0, 255, 0);  
-    if(crecimiento!=0)
-    {  
-      for(int c=1;c<=crecimiento;c++)
-      {
-      
-        cx=(x-(sy*crecimiento))*div+p*div;
-        cy=y*div-(sx*crecimiento)+m*div;
-         
-        rect(cx,cy, div, div); 
-      }
-    }
+    
 }
 
 void manzana() { 
